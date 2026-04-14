@@ -1,7 +1,7 @@
 services:
   web:
     build: .
-    container_name: php-apache-app
+    container_name: prakpemweb26-web
     ports:
       - "8082:80"
     volumes:
