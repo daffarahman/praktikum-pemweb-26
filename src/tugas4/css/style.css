@@ -1,0 +1,11 @@
+@font-face {
+    font-family: 'ChicagoKare';
+    src: url('../assets/chicago-kare.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+* {
+    font-family: 'ChicagoKare';
+}
