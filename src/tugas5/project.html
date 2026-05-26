@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <script src="js/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header id="header">
+    </header>
+
+    <main class="w-full h-screen mt-[-5rem] flex flex-col gap-4 items-center justify-center">
+
+        <!-- Project Detail -->
+        <section id="project-detail"
+            class="w-full max-w-2/3 lg:max-w-2/4 flex items-center justify-center rounded-2xl p-6 bg-slate-100">
+            <div id="detail-loading" class="text-center py-8 font-medium">
+                Loading project details...
+            </div>
+
+            <div id="detail-content" class="hidden w-full">
+            </div>
+        </section>
+
+        <a href="index.html"
+            class="p-2 bg-slate-900 text-white w-full max-w-2/3 lg:max-w-2/4 rounded-full text-center hover:bg-slate-800">Back
+            to project
+            list</a>
+    </main>
+
+    <script src="js/script.js"></script>
+</body>
+
+</html>
