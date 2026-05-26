@@ -1,28 +1,37 @@
-const apiMeow = "https://meowfacts.herokuapp.com/";
+// Muhammad Daffa Rahman - L0124062
+
+// Constants yang dipakai
 const githubUser = "daffarahman";
 const apiGithub = "https://api.github.com";
 const perPage = 5;
 
+// Saat htmlnya siap
 $(document).ready(function () {
+    // Di sini ngambil current html file (index.html or project.html)
     const currentFile = window.location.pathname.split('/').pop().trim();
+
+    // Ngambil parameter yang dikasih misal project.html?name=linux
     const urlParams = new URLSearchParams(window.location.search);
 
-    // So I don't need to rewrite the navbar in each html file
+    // Ngambil isi file components/header.html biar tidak perlu nulis ulang navbarnya
     $('#header')
         .addClass('flex justify-around items-center py-4')
         .load('components/header.html');
 
-    // Fetch the repo list data from my github and list only 5 of it in a table
+
+    // Khusus index.html
     if (currentFile === 'index.html') {
+        // fetch repo list data dengan maksimal 5 data pakai ajax
         $.ajax({
             url: `${apiGithub}/users/${githubUser}/repos?per_page=${perPage}`,
             method: 'GET',
             dataType: 'json',
             success: function (data) {
+                // Kosongkan isi projectList terlebih dahulu
                 const $projectList = $('#project-list');
-
                 $projectList.empty();
 
+                // Untuk setiap data...
                 data.forEach(function (project) {
                     const rowHtml = `
                     <tr class="relative hover:bg-slate-100 duration-200 cursor-pointer">
@@ -36,38 +45,46 @@ $(document).ready(function () {
                         </td>
                     </tr>
                 `;
+                    // append setiap isi pada elemen dengan rowHtml
                     $projectList.append(rowHtml);
                 });
             },
+            // Error
             error: function (xhr, status, error) {
                 console.error('Error fetching project data:', error);
             }
         });
     }
 
-    // Display the repo detail, taken from the name
-    else if (currentFile === 'project.html') {
+    // Untuk project.html dan pastikan terdapat parameter name
+    else if (currentFile === 'project.html' && urlParams.get('name') != null) {
         const projectName = urlParams.get('name');
 
+        // Ambil data detail repository pakai ajax
         $.ajax({
             url: `${apiGithub}/repos/${githubUser}/${projectName}`,
             method: 'GET',
             dataType: 'json',
             success: function (repo) {
+
+                // jika sukses, hide informasi loading
                 const $content = $('#detail-content');
                 $('#detail-loading').addClass('hidden');
                 $content.removeClass('hidden');
 
+                // Format informasi tanggal
                 const lastUpdated = new Date(repo.updated_at).toLocaleDateString(undefined, {
                     year: 'numeric',
                     month: 'short',
                     day: 'numeric'
                 });
 
+                // Untuk berjaga-jaga jika beberapa informasi repo null / undefined
                 const licenseName = repo.license ? repo.license.name : 'No License';
                 const projectLanguage = repo.language ? repo.language : 'N/A';
                 const projectDescription = repo.description ? repo.description : 'No description provided.';
 
+                // Menampilkan beberapa data dari response ke bentuk html
                 const detailHtml = `
                     <div class="flex flex-col gap-3 pt-4">
                         <img src="${repo.owner.avatar_url}" alt="${repo.owner.login}" class="w-16 h-16 rounded-full border border-slate-200">
@@ -117,8 +134,11 @@ $(document).ready(function () {
                     </table>
                 `;
 
+                // ubah isi htmlnya jadi detailHtml
                 $content.html(detailHtml);
             },
+
+            // Tampilkan error pada #project-detail apabila terdapat error saat fetching
             error: function (xhr, status, error) {
                 console.error('Error fetching project details:', error);
                 $('#project-detail').html(`
