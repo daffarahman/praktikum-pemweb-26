@@ -1,9 +1,10 @@
-/* style.css */
 body {
     font-family: 'Poppins', sans-serif !important;
 }
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
     border-radius: 0px !important;
     box-shadow: none !important;
     text-shadow: none !important;
@@ -30,4 +31,3 @@ body {
 .thread-replies-wrapper {
     border-left: 2px solid #FF246F !important;
 }
-

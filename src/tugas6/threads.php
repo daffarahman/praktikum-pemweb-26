@@ -1,8 +1,5 @@
 <?php
-// threads.php
-// Fetch threads logic and rendering function
-
-// Twitter-like date formatter
+// Format tanggal berdasarkan lama dari thread dibuat
 function format_twitter_date($timestamp_str) {
     $timestamp = strtotime($timestamp_str);
     if (!$timestamp) {
@@ -12,7 +9,6 @@ function format_twitter_date($timestamp_str) {
     $now = time();
     $diff = $now - $timestamp;
     
-    // Prevent negative diff due to small clock mismatches
     if ($diff < 0) {
         $diff = 0;
     }
@@ -31,7 +27,7 @@ function format_twitter_date($timestamp_str) {
         return "$hours jam lalu";
     }
     
-    // Month name translations in Indonesian
+    // Bulan dalam bahasa indonesia
     $months = [
         1 => 'Januari', 2 => 'Februari', 3 => 'Maret', 4 => 'April', 5 => 'Mei', 6 => 'Juni',
         7 => 'Juli', 8 => 'Agustus', 9 => 'September', 10 => 'Oktober', 11 => 'November', 12 => 'Desember'
@@ -50,10 +46,11 @@ function format_twitter_date($timestamp_str) {
     }
 }
 
-// Fetch all threads
+// Dump untuk parents dan threads
 $threads_by_parent = [];
 $root_threads = [];
 
+// Melakukan query get untuk threads secara ASCENDING
 try {
     $stmt = $pdo->query("SELECT * FROM ytta_threads ORDER BY created_at ASC");
     $all_threads = $stmt->fetchAll();
@@ -72,7 +69,7 @@ try {
     $error_message = 'Failed to load threads.';
 }
 
-// Recursive thread rendering function
+// Menampilkan thread dalam bentuk rekursif layaknya thread di X
 function render_thread($thread, $threads_by_parent, $csrf_token, $level = 0) {
     $id = (int)$thread['id'];
     $author = htmlspecialchars($thread['author_name'], ENT_QUOTES, 'UTF-8');
@@ -112,7 +109,7 @@ function render_thread($thread, $threads_by_parent, $csrf_token, $level = 0) {
                 </form>
             </div>
 
-            <!-- Reply Form (Hidden by default) -->
+            <!-- Reply Form -->
             <div id="reply-form-<?php echo $id; ?>" class="hidden mt-4 pt-4">
                 <h4 class="text-sm mb-2 text-white">Reply to #<?php echo $id; ?></h4>
                 <form method="POST" action="" class="space-y-3">
@@ -133,7 +130,7 @@ function render_thread($thread, $threads_by_parent, $csrf_token, $level = 0) {
                 </form>
             </div>
 
-            <!-- Edit Form (Hidden by default) -->
+            <!-- Edit Form -->
             <div id="edit-form-<?php echo $id; ?>" class="hidden mt-4 pt-4">
                 <h4 class="text-sm mb-2 text-white">Edit Thread #<?php echo $id; ?></h4>
                 <form method="POST" action="" class="space-y-3">

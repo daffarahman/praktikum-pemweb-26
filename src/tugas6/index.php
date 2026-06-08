@@ -1,24 +1,21 @@
 <?php
-// Start secure session for CSRF token
+
+// Memastikan setiap pengguna memiliki CSRF token unik yang disimpan di session
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// Generate CSRF token if not set
 if (empty($_SESSION['csrf_token'])) {
     $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
 }
 
 $csrf_token = $_SESSION['csrf_token'];
 
-// Load database connection & tables initialization
+// Include file-file php external
 require_once 'db.php';
-
-// Load form action processing
 require_once 'actions.php';
-
-// Load thread fetching logic and recursive rendering helper
 require_once 'threads.php';
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -26,7 +23,6 @@ require_once 'threads.php';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>YTTA - Anonymous Threads</title>
-    <!-- Use exact version of CDN Tailwind CSS v4 -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -35,7 +31,6 @@ require_once 'threads.php';
     <script src="script.js?v=<?php echo filemtime('script.js'); ?>" defer></script>
 </head>
 <body class="bg-[#390014] text-white min-h-screen">
-
     <div class="max-w-4xl mx-auto my-8 px-4">
         <!-- Header -->
         <header class="p-6 mb-8 text-center">
