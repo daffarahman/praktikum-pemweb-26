@@ -29,6 +29,7 @@
             <?php for ($i=1; $i <= 5; $i++) { ?>
                 <a class="hover:bg-yellow-600 hover:text-yellow-200 duration-200 p-3 rounded-full px-12" href="/tugas<?= $i ?>/index.html" target="_blank" rel="noopener noreferrer">Tugas <?= $i ?></a>    
             <?php } ?>
+            <a class="hover:bg-yellow-600 hover:text-yellow-200 duration-200 p-3 rounded-full px-12" href="/tugas6/index.php" target="_blank" rel="noopener noreferrer">Tugas 6</a>
         </section>
 
     </main>

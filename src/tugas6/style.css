@@ -1,0 +1,33 @@
+/* style.css */
+body {
+    font-family: 'Poppins', sans-serif !important;
+}
+
+*, *::before, *::after {
+    border-radius: 0px !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    transition: none !important;
+    border: none !important;
+    outline: none !important;
+}
+
+.font-black {
+    font-weight: 900 !important;
+}
+
+.font-sans {
+    font-family: 'Poppins', sans-serif !important;
+}
+
+.font-serif {
+    font-family: "Libre Baskerville", serif !important;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+}
+
+.thread-replies-wrapper {
+    border-left: 2px solid #FF246F !important;
+}
+
