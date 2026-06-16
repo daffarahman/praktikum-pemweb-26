@@ -8,6 +8,7 @@ class Thread {
     public $created_at;
     public $updated_at;
 
+    // Menginisialisasi data thread baru atau dari database
     public function __construct(array $data = []) {
         $this->id = isset($data['id']) ? (int)$data['id'] : null;
         $this->parent_id = isset($data['parent_id']) && $data['parent_id'] !== '' ? (int)$data['parent_id'] : null;
@@ -17,18 +18,22 @@ class Thread {
         $this->updated_at = $data['updated_at'] ?? null;
     }
 
+    // Mendapatkan tanggal pembuatan thread dalam format relatif ala Twitter/X
     public function getFormattedCreatedAt() {
         return $this->formatTwitterDate($this->created_at);
     }
 
+    // Mendapatkan tanggal update thread dalam format relatif ala Twitter/X jika ada
     public function getFormattedUpdatedAt() {
         return $this->updated_at ? $this->formatTwitterDate($this->updated_at) : null;
     }
 
+    // Memeriksa apakah thread sudah pernah diedit
     public function isEdited() {
         return !empty($this->updated_at);
     }
 
+    // Memformat string timestamp menjadi format relatif bahasa Indonesia ala Twitter/X
     private function formatTwitterDate($timestamp_str) {
         if (!$timestamp_str) {
             return '';
@@ -79,3 +84,4 @@ class Thread {
         }
     }
 }
+

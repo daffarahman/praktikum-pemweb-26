@@ -3,6 +3,7 @@
 class Database {
     private $pdo;
 
+    // Menghubungkan ke database dengan PDO dan menginisialisasi tabel
     public function __construct() {
         $host = getenv('DB_HOST');
         $port = getenv('DB_PORT');
@@ -28,6 +29,7 @@ class Database {
         }
     }
 
+    // Membuat tabel ytta_threads jika belum ada di database
     private function initializeTable() {
         // Create table if not exists with ytta_ prefix
         $sql = "CREATE TABLE IF NOT EXISTS ytta_threads (
@@ -43,7 +45,9 @@ class Database {
         $this->pdo->exec($sql);
     }
 
+    // Mengembalikan instance koneksi PDO
     public function getConnection() {
         return $this->pdo;
     }
 }
+

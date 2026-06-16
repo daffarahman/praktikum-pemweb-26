@@ -4,14 +4,17 @@ class ThreadController {
     private $repository;
     private $errorMessage = '';
 
+    // Menginisialisasi controller dengan instance repository thread
     public function __construct(ThreadRepository $repository) {
         $this->repository = $repository;
     }
 
+    // Mengambil pesan error yang terjadi selama pemrosesan aksi
     public function getErrorMessage() {
         return $this->errorMessage;
     }
 
+    // Menangani request POST untuk aksi create, update, dan delete thread
     public function handleRequest() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $csrfToken = $_POST['csrf_token'] ?? '';
@@ -85,3 +88,4 @@ class ThreadController {
         }
     }
 }
+

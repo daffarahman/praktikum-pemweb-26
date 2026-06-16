@@ -1,10 +1,11 @@
 <?php
+// Meload file autoloader class
 require_once __DIR__ . '/autoload.php';
 
-// Initialize session & CSRF
+// Menginisialisasi token CSRF untuk keamanan form
 $csrf_token = SessionManager::generateCsrfToken();
 
-// Include external scripts
+// File koneksi database, penanganan request, dan pemrosesan thread
 require_once 'db.php';
 require_once 'actions.php';
 require_once 'threads.php';

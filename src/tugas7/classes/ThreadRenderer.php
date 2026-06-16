@@ -4,11 +4,13 @@ class ThreadRenderer {
     private $csrfToken;
     private $replies;
 
+    // Menginisialisasi renderer dengan token CSRF dan data balasan (replies)
     public function __construct($csrfToken, array $replies) {
         $this->csrfToken = $csrfToken;
         $this->replies = $replies;
     }
 
+    // Merender tampilan thread secara rekursif beserta form balasan dan form editnya
     public function render(Thread $thread, $level = 0) {
         $id = (int)$thread->id;
         $author = htmlspecialchars($thread->author_name, ENT_QUOTES, 'UTF-8');
@@ -105,3 +107,4 @@ class ThreadRenderer {
         <?php
     }
 }
+
